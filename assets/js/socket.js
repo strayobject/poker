@@ -58,6 +58,19 @@ let channel = socket.channel("room:lobby", {});
 let chatInput = document.querySelector("#chat-input");
 let messagesContainer = document.querySelector("#messages");
 let cards = document.querySelector("#cards");
+let sessionJoinButton = document.querySelector("#sessionJoin");
+let sessionStartButton = document.querySelector("#sessionStart");
+
+sessionStartButton.addEventListener("click", event => {
+    channel.push(
+        "session_create",
+        {
+            sessionName: document.querySelector("#sessionName"),
+            sessionOwner: document.querySelector("#sessionOwner")
+        }
+    );
+});
+
 
 cards.addEventListener("click", event => {
     if(event.target.type === "button") {
@@ -70,7 +83,6 @@ channel.on("card_selected", payload => {
     messageItem.innerText = `[${Date()}] ${payload.body}`;
     messagesContainer.appendChild(messageItem);
 });
-
 
 chatInput.addEventListener("keypress", event => {
     if(event.keyCode === 13) {
