@@ -3,6 +3,7 @@ defmodule PokerWeb.UserSocket do
 
   ## Channels
   channel "room:*", PokerWeb.RoomChannel
+  channel "session:*", PokerWeb.SessionChannel
 
   ## Transports
   transport :websocket, Phoenix.Transports.WebSocket
