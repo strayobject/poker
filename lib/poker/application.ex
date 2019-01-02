@@ -1,17 +1,19 @@
 defmodule Poker.Application do
-  use Application
-
   # See https://hexdocs.pm/elixir/Application.html
   # for more information on OTP Applications
-  def start(_type, _args) do
-    import Supervisor.Spec
+  @moduledoc false
 
-    # Define workers and child supervisors to be supervised
+  use Application
+
+  def start(_type, _args) do
+    # List all child processes to be supervised
     children = [
       # Start the endpoint when the application starts
-      supervisor(PokerWeb.Endpoint, []),
-      # Start your own worker by calling: Poker.Worker.start_link(arg1, arg2, arg3)
-      # worker(Poker.Worker, [arg1, arg2, arg3]),
+      PokerWeb.Endpoint,
+      PokerWeb.EtsStorage,
+
+      # Starts a worker by calling: Poker.Worker.start_link(arg)
+      # {Poker.Worker, arg},
     ]
 
     # See https://hexdocs.pm/elixir/Supervisor.html

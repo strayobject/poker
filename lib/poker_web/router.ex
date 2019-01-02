@@ -14,10 +14,10 @@ defmodule PokerWeb.Router do
   end
 
   scope "/", PokerWeb do
-    pipe_through :browser # Use the default browser stack
+    pipe_through :browser
 
     get "/", PageController, :index
-    get "/session/:id", SessionController, :show
+    resources "/sessions", SessionController, only: [:create, :show, :delete]
   end
 
   # Other scopes may use custom stacks.

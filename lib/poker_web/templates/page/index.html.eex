@@ -22,7 +22,7 @@
       </div>
       <div class="form-group text-right">
         <div class="col-lg-offset-2 col-lg-10">
-          <button type="button" id="sessionJoin" class="btn btn-default">Join</button>
+          <button type="button" id="sessionJoin" class="btn btn-primary">Join</button>
         </div>
       </div>
     </form>
@@ -30,7 +30,7 @@
 
   <div class="col-lg-6">
     <h4 class="text-right">Start new session</h4>
-    <form class="form-horizontal">
+    <%= form_for @conn, Routes.session_path(@conn, :create), [class: "form-horizontal"], fn f -> %>
       <div class="form-group">
         <label for="sessionId" class="col-lg-4 control-label"><%= gettext "Session Name" %></label>
         <div class="col-lg-8">
@@ -47,8 +47,8 @@
         <label for="sessionId" class="col-lg-4 control-label"><%= gettext "Session Owner" %></label>
         <div class="col-lg-8">
         <input
-          id="sessionOwner"
-          name="sessionOwner"
+          id="session_owner"
+          name="session_owner"
           type="text"
           placeholder="<%= gettext "John Smith" %>"
           class="form-control"
@@ -57,10 +57,10 @@
       </div>
       <div class="form-group text-right">
         <div class="col-lg-offset-2 col-lg-10">
-          <button type="button" id="sessionStart" class="btn btn-default">Start</button>
+          <button type="submit" id="sessionStart" class="btn btn-primary">Start</button>
         </div>
       </div>
-    </form>
+<% end %>
   </div>
 </div>
 
@@ -69,11 +69,11 @@
 <input id="chat-input" type="text"/>
 
 <div id="cards">
-    <button class="card" type="button">1</button>
-    <button class="card" type="button">2</button>
-    <button class="card" type="button">3</button>
-    <button class="card" type="button">5</button>
-    <button class="card" type="button">8</button>
-    <button class="card" type="button">13</button>
-    <button class="card" type="button">21</button>
+    <button class="card btn btn-primary" type="button">1</button>
+    <button class="card btn btn-primary" type="button">2</button>
+    <button class="card btn btn-primary" type="button">3</button>
+    <button class="card btn btn-primary" type="button">5</button>
+    <button class="card btn btn-primary" type="button">8</button>
+    <button class="card btn btn-primary" type="button">13</button>
+    <button class="card btn btn-primary" type="button">21</button>
 </div>
