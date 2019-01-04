@@ -1,8 +1,51 @@
 <div class="row">
   <div class="col-lg-8">
-    Member Panel
+    <div id="messages"></div>
   </div>
   <div class="col-lg-4">
     Owner Panel
+    <br/>
+
+    <label for="chat-input">Text:</label>
+    <input id="chat-input" type="text"/>
   </div>
 </div>
+<br/><br/>
+<div class="row">
+  <div class="col-lg-12">
+    <div class="row" id="cards">
+      <div class="col-lg-2">
+      </div>
+      <div class="col-lg-1">
+        <a class="card bg-primary" id="test"><div class="card-body text-center">1</div></a>
+      </div>
+      <div class="col-lg-1">
+        <a class="card bg-primary"><div class="card-body text-center">2</div></a>
+      </div>
+      <div class="col-lg-1">
+        <a class="card bg-primary"><div class="card-body text-center">3</div></a>
+      </div>
+      <div class="col-lg-1">
+        <a class="card bg-primary"><div class="card-body text-center">5</div></a>
+      </div>
+      <div class="col-lg-1">
+        <a class="card bg-primary"><div class="card-body text-center">8</div></a>
+      </div>
+      <div class="col-lg-1">
+        <a class="card bg-primary"><div class="card-body text-center">13</div></a>
+      </div>
+      <div class="col-lg-1">
+        <a class="card bg-primary"><div class="card-body text-center">21</div></a>
+      </div>
+      <div class="col-lg-1">
+        <a class="card bg-primary"><div class="card-body text-center">?</div></a>
+      </div>
+      <div class="col-lg-2">
+      </div>
+    </div>
+  </div>
+</div>
+<script>
+  const sessionId = "<%= @session_id %>";
+  window.userToken = "<%= assigns[:user_token] %>";
+</script>

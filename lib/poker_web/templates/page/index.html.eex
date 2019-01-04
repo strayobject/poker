@@ -63,17 +63,3 @@
 <% end %>
   </div>
 </div>
-
-<div id="messages"></div>
-<label for="chat-input">Text:</label>
-<input id="chat-input" type="text"/>
-
-<div id="cards">
-    <button class="card btn btn-primary" type="button">1</button>
-    <button class="card btn btn-primary" type="button">2</button>
-    <button class="card btn btn-primary" type="button">3</button>
-    <button class="card btn btn-primary" type="button">5</button>
-    <button class="card btn btn-primary" type="button">8</button>
-    <button class="card btn btn-primary" type="button">13</button>
-    <button class="card btn btn-primary" type="button">21</button>
-</div>

@@ -52,15 +52,16 @@ let socket = new Socket("/socket", {params: {token: window.userToken}});
 //     end
 //
 // Finally, connect to the socket:
-socket.connect();
+
+if (sessionId.length > 0 && sessionId.type === undefined) {
+  socket.connect();
 
 // Now that you are connected, you can join channels with a topic:
-let channel = socket.channel("room:lobby", {});
-let chatInput = document.querySelector("#chat-input");
-let messagesContainer = document.querySelector("#messages");
-let cards = document.querySelector("#cards");
-let sessionJoinButton = document.querySelector("#sessionJoin");
-let sessionStartButton = document.querySelector("#sessionStart");
+  let chatChannel = socket.channel("chat:lobby", {});
+  let sessionChannel = socket.channel("session:"+sessionId, {});
+  let chatInput = document.querySelector("#chat-input");
+  let messagesContainer = document.querySelector("#messages");
+  let cards = document.querySelector("#cards");
 
 // sessionStartButton.addEventListener("click", event => {
 //   channel.push(
@@ -72,34 +73,49 @@ let sessionStartButton = document.querySelector("#sessionStart");
 //   );
 // });
 
+  sessionChannel.join()
+      .receive("ok", resp => {
+        console.log("Joined successfully", resp)
+      })
+      .receive("error", resp => {
+        console.log("Unable to join", resp)
+      });
 
-cards.addEventListener("click", event => {
-  if(event.target.type === "button") {
-    channel.push("card_selected", {body: event.target.innerText});
-  }
-});
+  cards.addEventListener("click", event => {
+    if (event.target.classList.contains("card-body")) {
+      sessionChannel.push("card_selected", {body: event.target.innerText});
+    }
+  });
 
-channel.on("card_selected", payload => {
-  let messageItem = document.createElement("li");
-  messageItem.innerText = `[${Date()}] ${payload.body}`;
-  messagesContainer.appendChild(messageItem);
-});
+  sessionChannel.on("card_selected", payload => {
+    let messageItem = document.createElement("li");
+    messageItem.innerText = `[${Date()}] ${payload.body}`;
+    messagesContainer.appendChild(messageItem);
+  });
 
-chatInput.addEventListener("keypress", event => {
-  if(event.keyCode === 13) {
-    channel.push("new_msg", {body: chatInput.value});
-    chatInput.value = "";
-  }
-});
 
-channel.on("new_msg", payload => {
-  let messageItem = document.createElement("li");
-  messageItem.innerText = `[${Date()}] ${payload.body}`;
-  messagesContainer.appendChild(messageItem);
-});
 
-channel.join()
-  .receive("ok", resp => { console.log("Joined successfully", resp) })
-  .receive("error", resp => { console.log("Unable to join", resp) });
 
-export default socket
+  chatInput.addEventListener("keypress", event => {
+    if (event.keyCode === 13) {
+      chatChannel.push("new_msg", {body: chatInput.value});
+      chatInput.value = "";
+    }
+  });
+
+  chatChannel.on("new_msg", payload => {
+    let messageItem = document.createElement("li");
+    messageItem.innerText = `[${Date()}] ${payload.body}`;
+    messagesContainer.appendChild(messageItem);
+  });
+
+  chatChannel.join()
+      .receive("ok", resp => {
+        console.log("Joined successfully", resp)
+      })
+      .receive("error", resp => {
+        console.log("Unable to join", resp)
+      });
+}
+
+export default socket;
