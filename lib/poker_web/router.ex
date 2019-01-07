@@ -19,6 +19,8 @@ defmodule PokerWeb.Router do
 
     get "/", PageController, :index
     resources "/sessions", SessionController, only: [:create, :show, :delete]
+    get "/sessions/:id/users/new", SessionUserController, :new
+    post "/sessions/:id/users", SessionUserController, :create
   end
 
   defp put_user_token(conn, _) do
@@ -26,12 +28,12 @@ defmodule PokerWeb.Router do
       token = Phoenix.Token.sign(conn, "user socket", current_user.id)
       assign(conn, :user_token, token)
     else
-      user_id = :crypto.strong_rand_bytes(15) |> Base.url_encode64() |> binary_part(0,15)
-      user = %{owner: false, name: "Guest", id: user_id}
-      token = Phoenix.Token.sign(conn, "user socket", user.id)
-
-      conn = put_session(conn, :current_user, user)
-      conn = assign(conn, :user_token, token)
+#      user_id = :crypto.strong_rand_bytes(15) |> Base.url_encode64() |> binary_part(0,15)
+#      user = %{owner: false, name: "Guest", id: user_id}
+#      token = Phoenix.Token.sign(conn, "user socket", user.id)
+#
+#      conn = put_session(conn, :current_user, user)
+#      conn = assign(conn, :user_token, token)
 
       conn
     end

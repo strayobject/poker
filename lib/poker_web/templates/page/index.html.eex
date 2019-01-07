@@ -60,6 +60,6 @@
           <button type="submit" id="sessionStart" class="btn btn-primary">Start</button>
         </div>
       </div>
-<% end %>
+    <% end %>
   </div>
 </div>

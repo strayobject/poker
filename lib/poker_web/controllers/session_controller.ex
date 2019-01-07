@@ -2,11 +2,21 @@ defmodule PokerWeb.SessionController do
   use PokerWeb, :controller
 
   def show(conn, %{"id" => session_id}) do
-    [{key, data}] = PokerWeb.EtsStorage.get(:sessions, session_id)
-
-    conn
-      |> put_flash(:info, "Welcome " <> data.name)
-      |> render("show.html", session_id: session_id)
+    case PokerWeb.EtsStorage.get(:sessions, session_id) do
+      [] ->
+        conn
+          |> put_flash(:error, "Session does not exist. Please set up a new one.")
+          |> redirect(to: Routes.page_path(conn, :index))
+      [{key, data}] ->
+        if current_user = get_session(conn, :current_user) do
+          conn
+            |> put_flash(:info, "Welcome " <> current_user.name)
+            |> render("show.html", session_id: session_id)
+        else
+          conn
+            |> redirect(to: Routes.session_user_path(conn, :new, session_id))
+        end
+    end
   end
 
   def create(conn, params) do
