@@ -63,22 +63,17 @@ if (sessionId.length > 0 && sessionId.type === undefined) {
   let messagesContainer = document.querySelector("#messages");
   let cards = document.querySelector("#cards");
 
-// sessionStartButton.addEventListener("click", event => {
-//   channel.push(
-//       "session_create",
-//       {
-//         sessionName: document.querySelector("#sessionName"),
-//         sessionOwner: document.querySelector("#sessionOwner")
-//       }
-//   );
-// });
-
   sessionChannel.join()
       .receive("ok", resp => {
-        console.log("Joined successfully", resp)
+        console.log("Joined successfully", resp);
+        const member = document.querySelector("#tplMembers").cloneNode(true);
+        member.removeAttribute("id");
+        member.classList.remove("hidden");
+        member.querySelector(".card-header:first-child").innerText = window.userName;
+        document.getElementById("members").appendChild(member);
       })
       .receive("error", resp => {
-        console.log("Unable to join", resp)
+        console.log("Unable to join", resp);
       });
 
   cards.addEventListener("click", event => {

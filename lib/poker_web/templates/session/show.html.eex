@@ -1,6 +1,11 @@
 <div class="row">
   <div class="col-lg-8">
+    <div id="members"></div>
     <div id="messages"></div>
+    <div id="tplMembers" class="card hidden">
+      <div class="card-header text-center"></div>
+      <div class="card-body"></div>
+    </div>
   </div>
   <div class="col-lg-4">
     Owner Panel
@@ -48,4 +53,5 @@
 <script>
   const sessionId = "<%= @session_id %>";
   window.userToken = "<%= assigns[:user_token] %>";
+  window.userName = "<%= assigns[:user_name] %>";
 </script>

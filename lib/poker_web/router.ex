@@ -26,7 +26,9 @@ defmodule PokerWeb.Router do
   defp put_user_token(conn, _) do
     if current_user = get_session(conn, :current_user) do
       token = Phoenix.Token.sign(conn, "user socket", current_user.id)
-      assign(conn, :user_token, token)
+      conn
+        |> assign(:user_name, current_user.name)
+        |> assign(:user_token, token)
     else
 #      user_id = :crypto.strong_rand_bytes(15) |> Base.url_encode64() |> binary_part(0,15)
 #      user = %{owner: false, name: "Guest", id: user_id}

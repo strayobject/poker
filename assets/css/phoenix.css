@@ -120,6 +120,18 @@ header nav a {
   display: block;
 }
 
+.hidden {
+  display: none !important;
+}
+
+#members .card {
+  max-width: 20%;
+}
+
+#members .card .card-body {
+  height: 200px;
+}
+
 @media (min-width: 40.0rem) { /* Small devices (landscape phones, 576px and up) */
   header section {
     flex-direction: row;
